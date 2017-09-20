@@ -7,17 +7,17 @@ const roles = {
   BUILDER: {
     initialState: builder.initialState,
     run: builder.run,
-    maxNum: 5,
+    maxNum: 2,
   },
   UPGRADER: {
     initialState: upgrader.initialState,
     run: upgrader.run,
-    maxNum: 5,
+    maxNum: 2,
   },
   HARVESTER: {
     initialState: harvester.initialState,
     run: harvester.run,
-    maxNum: 5,
+    maxNum: 2,
   },
 };
 
