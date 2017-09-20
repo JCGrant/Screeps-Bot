@@ -5,7 +5,7 @@ function harvest(creep) {
   const sources = creep.room.find(FIND_SOURCES);
   const result = creep.harvest(sources[0]);
   if (result == ERR_NOT_IN_RANGE) {
-      creep.moveTo(sources[0]);
+    creep.moveTo(sources[0]);
   }
 
   if (creep.carry.energy == creep.carryCapacity) {
@@ -32,7 +32,7 @@ function build(creep) {
 const actions = {
   [states.HARVESTING]: harvest,
   [states.BUILDING]: build,
-}
+};
 
 function run(creep) {
   const currentState = creep.memory.state;

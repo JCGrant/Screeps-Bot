@@ -4,7 +4,7 @@ const roles = require('roles');
 function deleteDeadCreeps() {
   for (const name in Memory.creeps) {
     if (!Game.creeps[name]) {
-        delete Memory.creeps[name];
+      delete Memory.creeps[name];
     }
   }
 }
@@ -18,7 +18,8 @@ function spawnNewCreeps() {
       Game.spawns['Spawn1'].createCreep(
         [ WORK, CARRY, MOVE ],
         undefined,
-        { role: role, state: roleInfo.initialState });
+        { role: role, state: roleInfo.initialState }
+      );
     }
   }
 }
@@ -34,4 +35,4 @@ module.exports.loop = function () {
   deleteDeadCreeps();
   spawnNewCreeps();
   creepsPerformRoles();
-}
+};
