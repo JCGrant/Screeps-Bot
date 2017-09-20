@@ -34,13 +34,17 @@ const actions = {
   [states.BUILDING]: build,
 };
 
+const initialState = states.BUILDING;
+
 function run(creep) {
-  const currentState = creep.memory.state;
+  let currentState = creep.memory.state;
+  if (!actions.hasOwnProperty(currentState)) {
+    currentState = initialState;
+  }
   const nextState = actions[currentState](creep);
   creep.memory.state = nextState;
 }
 
 module.exports = {
-  initialState: states.BUILDING,
   run,
 };

@@ -18,7 +18,7 @@ function spawnNewCreeps() {
       Game.spawns['Spawn1'].createCreep(
         [ WORK, CARRY, MOVE ],
         undefined,
-        { role: role, state: roleInfo.initialState }
+        { role }
       );
     }
   }
