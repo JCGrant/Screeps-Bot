@@ -14,11 +14,14 @@ function deleteDeadCreeps() {
   }
 }
 
-module.exports.loop = function () {
-  deleteDeadCreeps();
-
+function creepsPerformRoles() {
   for (const name in Game.creeps) {
     const creep = Game.creeps[name];
     roles[creep.memory.role](creep);
   }
+}
+
+module.exports.loop = function () {
+  deleteDeadCreeps();
+  creepsPerformRoles();
 }
