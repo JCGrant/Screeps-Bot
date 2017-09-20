@@ -11,11 +11,11 @@ function harvest(creep) {
   if (result == ERR_NOT_IN_RANGE) {
       creep.moveTo(sources[0]);
   }
-  if (creep.carry.energy < creep.carryCapacity) {
-    return states.HARVESTING;
-  } else {
+
+  if (creep.carry.energy == creep.carryCapacity) {
     return states.TRANSFERRING;
   }
+  return states.HARVESTING;
 }
 
 function transfer(creep) {
@@ -23,11 +23,11 @@ function transfer(creep) {
   if (result == ERR_NOT_IN_RANGE) {
     creep.moveTo(Game.spawns['Spawn1']);
   }
-  if (creep.carry.energy > 0) {
-    return states.TRANSFERRING;
-  } else {
+
+  if (creep.carry.energy == 0) {
     return states.HARVESTING;
   }
+  return states.TRANSFERRING
 }
 
 const actions = {

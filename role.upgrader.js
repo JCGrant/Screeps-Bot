@@ -11,11 +11,11 @@ function harvest(creep) {
   if (result == ERR_NOT_IN_RANGE) {
       creep.moveTo(sources[0]);
   }
-  if (creep.carry.energy < creep.carryCapacity) {
-    return states.HARVESTING;
-  } else {
+
+  if (creep.carry.energy == creep.carryCapacity) {
     return states.UPGRADING;
   }
+  return states.HARVESTING;
 }
 
 function upgrade(creep) {
@@ -23,11 +23,11 @@ function upgrade(creep) {
   if (result  == ERR_NOT_IN_RANGE) {
     creep.moveTo(creep.room.controller);
   }
-  if (creep.carry.energy > 0) {
-    return states.UPGRADING;
-  } else {
+
+  if (creep.carry.energy == 0) {
     return states.HARVESTING;
-  }
+  } 
+  return states.UPGRADING;
 }
 
 const actions = {
