@@ -24,10 +24,20 @@ function spawnNewCreeps() {
   }
 }
 
+function performRole(creep) {
+  const role = roles[creep.memory.role];
+  let currentState = creep.memory.state;
+  if (!role.actions.hasOwnProperty(currentState)) {
+    currentState = role.initialState;
+  }
+  const nextState = role.actions[currentState](creep);
+  creep.memory.state = nextState;
+}
+
 function creepsPerformRoles() {
   for (const name in Game.creeps) {
     const creep = Game.creeps[name];
-    roles[creep.memory.role].run(creep);
+    performRole(creep);
   }
 }
 

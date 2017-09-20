@@ -33,15 +33,7 @@ const actions = {
 
 const initialState = states.UPGRADING;
 
-function run(creep) {
-  let currentState = creep.memory.state;
-  if (!actions.hasOwnProperty(currentState)) {
-    currentState = initialState;
-  }
-  const nextState = actions[currentState](creep);
-  creep.memory.state = nextState;
-}
-
 module.exports = {
-  run,
+  actions,
+  initialState,
 };

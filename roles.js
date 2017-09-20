@@ -5,15 +5,18 @@ const builder = require('role.builder');
 
 const roles = {
   BUILDER: {
-    run: builder.run,
+    actions: builder.actions,
+    initialState: builder.initialState,
     maxNum: 2,
   },
   UPGRADER: {
-    run: upgrader.run,
+    actions: upgrader.actions,
+    initialState: upgrader.initialState,
     maxNum: 2,
   },
   HARVESTER: {
-    run: harvester.run,
+    actions: harvester.actions,
+    initialState: harvester.initialState,
     maxNum: 2,
   },
 };
