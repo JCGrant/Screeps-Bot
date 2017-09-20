@@ -1,10 +1,5 @@
 'use strict';
-
-const roles = {
-  'harvester': require('role.harvester'),
-  'upgrader': require('role.upgrader'),
-  'builder': require('role.builder'),
-}
+const roles = require('roles');
 
 function deleteDeadCreeps() {
   for (const name in Memory.creeps) {
@@ -17,7 +12,7 @@ function deleteDeadCreeps() {
 function creepsPerformRoles() {
   for (const name in Game.creeps) {
     const creep = Game.creeps[name];
-    roles[creep.memory.role](creep);
+    roles[creep.memory.role].run(creep);
   }
 }
 

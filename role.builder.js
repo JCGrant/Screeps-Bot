@@ -1,9 +1,5 @@
 'use strict';
-
-const states = {
-  HARVESTING: 'harvesting',
-  BUILDING: 'building',
-};
+const states = require('states');
 
 function harvest(creep) {
   const sources = creep.room.find(FIND_SOURCES);
@@ -44,4 +40,7 @@ function run(creep) {
   creep.memory.state = nextState;
 }
 
-module.exports = run;
+module.exports = {
+  initialState: states.BUILDING,
+  run,
+};
