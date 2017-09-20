@@ -3,9 +3,9 @@ const states = require('states');
 
 function harvest(creep) {
   const sources = creep.room.find(FIND_SOURCES);
-  const result = creep.harvest(sources[0]);
+  const result = creep.harvest(sources[1]);
   if (result == ERR_NOT_IN_RANGE) {
-    creep.moveTo(sources[0]);
+    creep.moveTo(sources[1]);
   }
 
   if (creep.carry.energy == creep.carryCapacity) {
