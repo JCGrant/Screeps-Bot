@@ -14,10 +14,20 @@ function harvest(creep) {
   return states.HARVESTING;
 }
 
+function isStorable(structure) {
+  return (
+    structure.structureType == STRUCTURE_SPAWN ||
+    structure.structureType == STRUCTURE_EXTENSION
+  ) && structure.energy < structure.energyCapacity;
+}
+
 function transfer(creep) {
-  const result = creep.transfer(Game.spawns['Spawn1'], RESOURCE_ENERGY);
-  if (result == ERR_NOT_IN_RANGE) {
-    creep.moveTo(Game.spawns['Spawn1']);
+  const targets = creep.room.find(FIND_STRUCTURES, { filter: isStorable });
+  if (targets.length > 0) {
+    const result = creep.transfer(targets[0], RESOURCE_ENERGY);
+    if (result == ERR_NOT_IN_RANGE) {
+      creep.moveTo(targets[0]);
+    }
   }
 
   if (creep.carry.energy == 0) {
