@@ -5,9 +5,14 @@ function initialise(creep) {
   return states.BUILDING;
 }
 
+function isWithdrawable(structure) {
+  return structure.structureType == STRUCTURE_CONTAINER &&
+    structure.store[RESOURCE_ENERGY] > 0;
+}
+
 function withdraw(creep) {
   const container = creep.pos.findClosestByRange(FIND_STRUCTURES,
-    {filter: {structureType: STRUCTURE_CONTAINER}});
+    { filter: isWithdrawable });
   const result = creep.withdraw(container, RESOURCE_ENERGY);
   if (result == ERR_NOT_IN_RANGE) {
     creep.moveTo(container);
