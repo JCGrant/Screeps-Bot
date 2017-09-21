@@ -1,5 +1,6 @@
 'use strict';
 const roles = require('roles');
+const states = require('states');
 
 function deleteDeadCreeps() {
   for (const name in Memory.creeps) {
@@ -18,7 +19,7 @@ function spawnNewCreeps() {
       Game.spawns['Spawn1'].createCreep(
         [ WORK, CARRY, MOVE ],
         undefined,
-        { role }
+        { role, state: states.INITIALISING }
       );
     }
   }
@@ -28,7 +29,7 @@ function performRole(creep) {
   const role = roles[creep.memory.role];
   let currentState = creep.memory.state;
   if (!role.actions.hasOwnProperty(currentState)) {
-    currentState = role.initialState;
+    currentState = states.INITIALISING;
   }
   const nextState = role.actions[currentState](creep);
   creep.memory.state = nextState;

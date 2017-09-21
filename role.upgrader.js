@@ -1,6 +1,10 @@
 'use strict';
 const states = require('states');
 
+function initialise(creep) {
+  return states.UPGRADING;
+}
+
 function harvest(creep) {
   const source = creep.pos.findClosestByRange(FIND_SOURCES);
   const result = creep.harvest(source);
@@ -27,13 +31,11 @@ function upgrade(creep) {
 }
 
 const actions = {
+  [states.INITIALISING]: initialise,
   [states.HARVESTING]: harvest,
   [states.UPGRADING]: upgrade,
 };
 
-const initialState = states.UPGRADING;
-
 module.exports = {
   actions,
-  initialState,
 };
