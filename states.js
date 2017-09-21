@@ -5,6 +5,7 @@ const states = {
   TRANSFERRING: 'TRANSFERRING',
   UPGRADING: 'UPGRADING',
   BUILDING: 'BUILDING',
+  WITHDRAWING: 'WITHDRAWING',
 };
 
 module.exports = states;

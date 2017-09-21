@@ -5,17 +5,18 @@ function initialise(creep) {
   return states.BUILDING;
 }
 
-function harvest(creep) {
-  const source = creep.pos.findClosestByRange(FIND_SOURCES);
-  const result = creep.harvest(source);
+function withdraw(creep) {
+  const container = creep.pos.findClosestByRange(FIND_STRUCTURES,
+    {filter: {structureType: STRUCTURE_CONTAINER}});
+  const result = creep.withdraw(container, RESOURCE_ENERGY);
   if (result == ERR_NOT_IN_RANGE) {
-    creep.moveTo(source);
+    creep.moveTo(container);
   }
 
   if (creep.carry.energy == creep.carryCapacity) {
     return states.BUILDING;
   }
-  return states.HARVESTING;
+  return states.WITHDRAWING;
 }
 
 function build(creep) {
@@ -28,14 +29,14 @@ function build(creep) {
   }
 
   if (creep.carry.energy == 0) {
-    return states.HARVESTING;
+    return states.WITHDRAWING;
   }
   return states.BUILDING;
 }
 
 const actions = {
   [states.INITIALISING]: initialise,
-  [states.HARVESTING]: harvest,
+  [states.WITHDRAWING]: withdraw,
   [states.BUILDING]: build,
 };
 
