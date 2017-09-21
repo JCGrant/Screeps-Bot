@@ -2,7 +2,12 @@
 const states = require('states');
 
 function initialise(creep) {
-  return states.UPGRADING;
+  creep.moveTo(creep.room.controller);
+
+  if (creep.pos.inRangeTo(creep.room.controller, 3)) {
+    return states.UPGRADING;
+  }
+  return states.INITIALISING;
 }
 
 function harvest(creep) {
