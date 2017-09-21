@@ -7,7 +7,7 @@ const roles = {
   BUILDER: {
     actions: builder.actions,
     initialState: builder.initialState,
-    maxNum: 2,
+    maxNum: 4,
   },
   UPGRADER: {
     actions: upgrader.actions,

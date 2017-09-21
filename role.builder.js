@@ -15,11 +15,11 @@ function harvest(creep) {
 }
 
 function build(creep) {
-  const targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-  if (targets.length > 0) {
-    const result = creep.build(targets[0])
+  const site = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+  if (site !== null) {
+    const result = creep.build(site)
     if (result == ERR_NOT_IN_RANGE) {
-      creep.moveTo(targets[0]);
+      creep.moveTo(site);
     }
   }
 
