@@ -10,17 +10,23 @@ function initialise(creep) {
   return states.INITIALISING;
 }
 
-function harvest(creep) {
-  const source = creep.pos.findClosestByRange(FIND_SOURCES);
-  const result = creep.harvest(source);
+function isWithdrawable(structure) {
+  return structure.structureType == STRUCTURE_CONTAINER &&
+    structure.store[RESOURCE_ENERGY] > 0;
+}
+
+function withdraw(creep) {
+  const container = creep.pos.findClosestByRange(FIND_STRUCTURES,
+    { filter: isWithdrawable });
+  const result = creep.withdraw(container, RESOURCE_ENERGY);
   if (result == ERR_NOT_IN_RANGE) {
-    creep.moveTo(source);
+    creep.moveTo(container);
   }
 
   if (creep.carry.energy == creep.carryCapacity) {
     return states.UPGRADING;
   }
-  return states.HARVESTING;
+  return states.WITHDRAWING;
 }
 
 function upgrade(creep) {
@@ -30,14 +36,14 @@ function upgrade(creep) {
   }
 
   if (creep.carry.energy == 0) {
-    return states.HARVESTING;
+    return states.WITHDRAWING;
   } 
   return states.UPGRADING;
 }
 
 const actions = {
   [states.INITIALISING]: initialise,
-  [states.HARVESTING]: harvest,
+  [states.WITHDRAWING]: withdraw,
   [states.UPGRADING]: upgrade,
 };
 
