@@ -16,7 +16,7 @@ const roles = {
   },
   MINER: {
     actions: miner.actions,
-    body: [ WORK, WORK, WORK, MOVE ],
+    body: [ WORK, WORK, WORK, WORK, WORK, MOVE, MOVE ],
   },
   HARVESTER: {
     actions: harvester.actions,
