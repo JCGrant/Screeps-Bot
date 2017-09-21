@@ -12,7 +12,7 @@ const roles = {
   UPGRADER: {
     actions: upgrader.actions,
     initialState: upgrader.initialState,
-    maxNum: 2,
+    maxNum: 4,
   },
   HARVESTER: {
     actions: harvester.actions,
