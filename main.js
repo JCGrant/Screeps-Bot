@@ -12,10 +12,9 @@ function deleteDeadCreeps() {
 
 function spawnNewCreeps() {
   for (const role in roles) {
-    const roleInfo = roles[role];
     const creeps = _.filter(Game.creeps,
       (creep) => creep.memory.role == role);
-    if (creeps.length < roleInfo.maxNum) {
+    if (creeps.length < Memory.config.maxNum[role]) {
       Game.spawns['Spawn1'].createCreep(
         [ WORK, CARRY, MOVE ],
         undefined,
