@@ -16,7 +16,7 @@ function spawnNewCreeps() {
       (creep) => creep.memory.role == role);
     if (creeps.length < Memory.config.maxNum[role]) {
       Game.spawns['Spawn1'].createCreep(
-        [ WORK, CARRY, MOVE ],
+        roles[role].body,
         undefined,
         { role, state: states.INITIALISING }
       );
