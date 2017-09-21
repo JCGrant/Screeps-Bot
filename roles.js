@@ -3,6 +3,7 @@ const harvester = require('role.harvester');
 const upgrader = require('role.upgrader');
 const builder = require('role.builder');
 const miner = require('role.miner');
+const lorry = require('role.lorry');
 
 const roles = {
   BUILDER: {
@@ -20,6 +21,10 @@ const roles = {
   HARVESTER: {
     actions: harvester.actions,
     body: [ WORK, CARRY, MOVE ],
+  },
+  LORRY: {
+    actions: lorry.actions,
+    body: [ WORK, CARRY, CARRY, MOVE, MOVE ],
   },
 };
 
