@@ -41,6 +41,13 @@ function creepsPerformRoles() {
   }
 }
 
+function killAllCreeps() {
+  for (const name in Game.creeps) {
+    const creep = Game.creeps[name];
+    creep.suicide();
+  }
+}
+
 module.exports.loop = function () {
   deleteDeadCreeps();
   spawnNewCreeps();
