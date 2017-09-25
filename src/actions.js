@@ -1,4 +1,6 @@
 'use strict';
+const utils = require('utils');
+
 const harvest = (creep) => {
   const target = Game.getObjectById(creep.memory.sourceId);
   const result = creep.harvest(target);
@@ -39,8 +41,22 @@ const build = (creep) => {
   }
 };
 
+const strcuturesByPriority = [
+  STRUCTURE_SPAWN,
+  STRUCTURE_EXTENSION,
+  STRUCTURE_TOWER,
+];
+
 const transfer = (creep) => {
-  const target = Game.getObjectById(creep.memory.targetId);
+  const specifiedTarget = Game.getObjectById(creep.memory.targetId);
+  let target;
+  if (specifiedTarget) {
+    target = specifiedTarget;
+  } else {
+    const targets = utils.findStructuresByPriority(creep, strcuturesByPriority,
+      { filter: (structure) => structure.energy < structure.energyCapacity });
+    target = creep.pos.findClosestByPath(targets);
+  }
   const result = creep.transfer(target, RESOURCE_ENERGY);
   if (result == ERR_NOT_IN_RANGE) {
     creep.moveTo(target);
