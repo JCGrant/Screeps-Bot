@@ -32,7 +32,7 @@ const upgrade = (creep) => {
 };
 
 const build = (creep) => {
-  const target = Game.getObjectById(creep.memory.targetId);
+  const target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
   const result = creep.build(target);
   if (result == ERR_NOT_IN_RANGE) {
     creep.moveTo(target);

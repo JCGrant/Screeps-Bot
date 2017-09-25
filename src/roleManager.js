@@ -23,6 +23,7 @@ const jobs = {
       transitions.ifCreepEmpty(states.HARVESTING)
     )
   }),
+
   [roles.UPGRADER]: createRole({
     [states.HARVESTING]: bind(
       actions.harvest,
@@ -30,6 +31,17 @@ const jobs = {
     ),
     [states.UPGRADING]: bind(
       actions.upgrade,
+      transitions.ifCreepEmpty(states.HARVESTING)
+    )
+  }),
+
+  [roles.BUILDER]: createRole({
+    [states.HARVESTING]: bind(
+      actions.harvest,
+      transitions.ifCreepFull(states.BUILDING)
+    ),
+    [states.BUILDING]: bind(
+      actions.build,
       transitions.ifCreepEmpty(states.HARVESTING)
     )
   }),
