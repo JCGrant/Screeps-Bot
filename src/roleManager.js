@@ -1,3 +1,4 @@
+'use strict';
 const roles = require('roles');
 const states = require('states');
 const actions = require('actions');

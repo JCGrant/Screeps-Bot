@@ -1,3 +1,4 @@
+'use strict';
 module.exports = {
   maxNum: {
     'harvester': 5,

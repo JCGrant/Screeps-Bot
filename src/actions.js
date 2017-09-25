@@ -1,3 +1,4 @@
+'use strict';
 const harvest = (creep) => {
   const target = Game.getObjectById(creep.memory.sourceId);
   const result = creep.harvest(target);
