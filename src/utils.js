@@ -16,7 +16,7 @@ const findStructuresByPriority = (creep, structureTypes, filter) => {
     const targets = _.filter(allTargets, { structureType });
     if (targets.length > 0) { return targets; }
   }
-  return null;
+  return [];
 };
 
 module.exports = {
