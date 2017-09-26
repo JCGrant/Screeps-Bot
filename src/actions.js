@@ -63,6 +63,35 @@ const transfer = (creep) => {
   }
 };
 
+const travel = (creep) => {
+  const exitDir = creep.room.findExitTo(creep.memory.targetRoom);
+  const exit = creep.pos.findClosestByPath(exitDir);
+  creep.moveTo(exit);
+};
+
+const attack = (creep) => {
+  let target = creep.pos.findClosestByPath(FIND_HOSTILE_SPAWNS);
+  if (!target) {
+    target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
+  }
+  if (!target) {
+    target = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES);
+  }
+  if (target) {
+    const result = creep.attack(target);
+    if (result == ERR_NOT_IN_RANGE) {
+      creep.moveTo(target);
+    }
+  }
+  target = creep.room.controller;
+  if (!target.my) {
+    const result = creep.attackController(target);
+    if (result == ERR_NOT_IN_RANGE) {
+      creep.moveTo(target);
+    }
+  }
+};
+
 module.exports = {
   harvest,
   withdraw,
@@ -70,4 +99,6 @@ module.exports = {
   upgrade,
   build,
   transfer,
+  travel,
+  attack,
 };

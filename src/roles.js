@@ -6,4 +6,5 @@ module.exports = {
   MINER: 'miner',
   SUPPLIER: 'supplier',
   GATHERER: 'gatherer',
+  ATTACKER: 'attacker',
 };

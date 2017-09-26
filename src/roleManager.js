@@ -45,6 +45,17 @@ const jobs = {
       transitions.ifCreepEmpty(states.HARVESTING)
     )
   }),
+
+  [roles.ATTACKER]: createRole({
+    [states.TRAVELLING]: bind(
+      actions.travel,
+      transitions.ifCreepInTargetRoom(states.ATTACKING)
+    ),
+    [states.ATTACKING]: bind(
+      actions.attack,
+      transitions.noTransition()
+    )
+  }),
 };
 
 const performAction = (creep) => {
