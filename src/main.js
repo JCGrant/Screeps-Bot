@@ -24,6 +24,17 @@ const runTower = () => {
   towerAttack(tower);
 };
 
+global.killAllCreeps = () => {
+  for (const name in Game.creeps) {
+    const creep = Game.creeps[name];
+    creep.suicide();
+  }
+};
+
+global.createNewCreep = (spawn, role) => {
+  creepManager.createNewCreep(spawn, role);
+};
+
 module.exports.loop = () => {
   runTower();
   creepManager.deleteDeadCreeps();
