@@ -54,6 +54,16 @@ const ifCreepInTargetRoom = (nextState) => {
   };
 };
 
+const ifCreepInHomeRoom = (nextState) => {
+  return (creep) => {
+    const creepInHomeRoom = creep.room.name === creep.memory.state.homeRoom;
+    if (creepInHomeRoom) {
+      return Object.assign(creep.memory.state, nextState);
+    }
+    return creep.memory.state;
+  };
+};
+
 module.exports = {
   noTransition,
   ifCreepFull,
@@ -61,4 +71,5 @@ module.exports = {
   ifCreepHasEnergy,
   ifCreepOnContainer,
   ifCreepInTargetRoom,
+  ifCreepInHomeRoom,
 };

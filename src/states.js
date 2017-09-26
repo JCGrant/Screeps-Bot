@@ -7,5 +7,6 @@ module.exports = {
   BUILDING: 'building',
   TRANSFERRING: 'transferring',
   ATTACKING: 'attacking',
-  TRAVELLING: 'travelling',
+  TRAVELLING_TO: 'travelling-to',
+  TRAVELLING_FROM: 'travelling-from',
 };

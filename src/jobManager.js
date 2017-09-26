@@ -59,8 +59,8 @@ const jobs = {
   }),
 
   [roles.ATTACKER]: createJob({
-    [states.TRAVELLING]: bind(
-      actions.travel,
+    [states.TRAVELLING_TO]: bind(
+      actions.travelTo,
       transitions.ifCreepInTargetRoom({
         'currentState': states.ATTACKING,
       })
@@ -69,6 +69,33 @@ const jobs = {
       actions.attack,
       transitions.noTransition()
     )
+  }),
+
+  [roles.REMOTE_HARVESTER]: createJob({
+    [states.TRAVELLING_TO]: bind(
+      actions.travelTo,
+      transitions.ifCreepInTargetRoom({
+        'currentState': states.HARVESTING,
+      })
+    ),
+    [states.HARVESTING]: bind(
+      actions.harvest,
+      transitions.ifCreepFull({
+        'currentState': states.TRAVELLING_FROM,
+      })
+    ),
+    [states.TRAVELLING_FROM]: bind(
+      actions.travelFrom,
+      transitions.ifCreepInHomeRoom({
+        'currentState': states.TRANSFERRING,
+      })
+    ),
+    [states.TRANSFERRING]: bind(
+      actions.transfer,
+      transitions.ifCreepEmpty({
+        'currentState': states.TRAVELLING_TO,
+      })
+    ),
   }),
 };
 

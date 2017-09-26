@@ -63,8 +63,14 @@ const transfer = (creep) => {
   }
 };
 
-const travel = (creep) => {
+const travelTo = (creep) => {
   const exitDir = creep.room.findExitTo(creep.memory.state.targetRoom);
+  const exit = creep.pos.findClosestByPath(exitDir);
+  creep.moveTo(exit);
+};
+
+const travelFrom = (creep) => {
+  const exitDir = creep.room.findExitTo(creep.memory.state.homeRoom);
   const exit = creep.pos.findClosestByPath(exitDir);
   creep.moveTo(exit);
 };
@@ -99,6 +105,7 @@ module.exports = {
   upgrade,
   build,
   transfer,
-  travel,
+  travelTo,
+  travelFrom,
   attack,
 };
