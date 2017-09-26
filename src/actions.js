@@ -2,7 +2,7 @@
 const utils = require('utils');
 
 const harvest = (creep) => {
-  const target = Game.getObjectById(creep.memory.sourceId);
+  const target = Game.getObjectById(creep.memory.state.sourceId);
   const result = creep.harvest(target);
   if (result == ERR_NOT_IN_RANGE) {
     creep.moveTo(target);
@@ -10,15 +10,15 @@ const harvest = (creep) => {
 };
 
 const withdraw = (creep) => {
-  const target = Game.getObjectById(creep.memory.sourceId);
-  const result = creep.withdraw(target, RESOURCE_ENERGY, creep.memory.withdrawAmount);
+  const target = Game.getObjectById(creep.memory.state.sourceId);
+  const result = creep.withdraw(target, RESOURCE_ENERGY, creep.memory.state.withdrawAmount);
   if (result == ERR_NOT_IN_RANGE) {
     creep.moveTo(target);
   }
 };
 
 const gather = (creep) => {
-  const target = Game.getObjectById(creep.memory.sourceId);
+  const target = Game.getObjectById(creep.memory.state.sourceId);
   const result = creep.pickup(target);
   if (result == ERR_NOT_IN_RANGE) {
     creep.moveTo(target);
@@ -48,7 +48,7 @@ const strcuturesByPriority = [
 ];
 
 const transfer = (creep) => {
-  const specifiedTarget = Game.getObjectById(creep.memory.targetId);
+  const specifiedTarget = Game.getObjectById(creep.memory.state.targetId);
   let target;
   if (specifiedTarget) {
     target = specifiedTarget;
@@ -64,7 +64,7 @@ const transfer = (creep) => {
 };
 
 const travel = (creep) => {
-  const exitDir = creep.room.findExitTo(creep.memory.targetRoom);
+  const exitDir = creep.room.findExitTo(creep.memory.state.targetRoom);
   const exit = creep.pos.findClosestByPath(exitDir);
   creep.moveTo(exit);
 };

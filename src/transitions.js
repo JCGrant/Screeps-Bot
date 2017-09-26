@@ -10,7 +10,7 @@ const noTransition = () => {
 const ifCreepFull = (nextState) => {
   return (creep) => {
     if (creep.carry.energy == creep.carryCapacity) {
-      return nextState;
+      return Object.assign(creep.memory.state, nextState);
     }
     return creep.memory.state;
   };
@@ -19,7 +19,7 @@ const ifCreepFull = (nextState) => {
 const ifCreepEmpty = (nextState) => {
   return (creep) => {
     if (creep.carry.energy == 0) {
-      return nextState;
+      return Object.assign(creep.memory.state, nextState);
     }
     return creep.memory.state;
   };
@@ -28,7 +28,7 @@ const ifCreepEmpty = (nextState) => {
 const ifCreepHasEnergy = (nextState) => {
   return (creep) => {
     if (creep.carry.energy > 0) {
-      return nextState;
+      return Object.assign(creep.memory.state, nextState);
     }
     return creep.memory.state;
   };
@@ -38,7 +38,7 @@ const ifCreepOnContainer = (nextState) => {
   return (creep) => {
     const creepOnContainer = utils.positionContainsObject(creep.pos, STRUCTURE_CONTAINER);
     if (creepOnContainer) {
-      return nextState;
+      return Object.assign(creep.memory.state, nextState);
     }
     return creep.memory.state;
   };
@@ -46,9 +46,9 @@ const ifCreepOnContainer = (nextState) => {
 
 const ifCreepInTargetRoom = (nextState) => {
   return (creep) => {
-    const creepInTargetRoom = creep.room.name === creep.memory.targetRoom;
+    const creepInTargetRoom = creep.room.name === creep.memory.state.targetRoom;
     if (creepInTargetRoom) {
-      return nextState;
+      return Object.assign(creep.memory.state, nextState);
     }
     return creep.memory.state;
   };

@@ -1,7 +1,7 @@
 'use strict';
 const config = require('config');
 const roles = require('roles');
-const roleManager = require('roleManager');
+const jobManager = require('jobManager');
 
 const deleteDeadCreeps = () => {
   _.forOwn(Memory.creeps, (creep, name) => {
@@ -30,7 +30,7 @@ const spawnNewCreeps = () => {
 };
 
 const performRole = (creep) => {
-  creep.memory.state = roleManager.performAction(creep);
+  creep.memory.state = jobManager.performJob(creep);
 };
 
 const creepsPerformRoles = () => {
