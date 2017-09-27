@@ -81,18 +81,12 @@ const attack = (creep) => {
     target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
   }
   if (!target) {
-    target = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES);
+    target = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES,
+      { filter: (structure) => structure.structureType !== STRUCTURE_CONTROLLER });
   }
   if (target) {
     const result = creep.attack(target);
-    if (result == ERR_NOT_IN_RANGE) {
-      creep.moveTo(target);
-    }
-  }
-  target = creep.room.controller;
-  if (!target.my) {
-    const result = creep.attackController(target);
-    if (result == ERR_NOT_IN_RANGE) {
+    if (result == ERR_NOT_IN_RANGE || result == ERR_INVALID_TARGET) {
       creep.moveTo(target);
     }
   }
