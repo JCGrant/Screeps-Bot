@@ -35,6 +35,12 @@ global.createNewCreep = (spawn, role) => {
   creepManager.createNewCreep(spawn, role);
 };
 
+global.printCreepsInfo = () => {
+  _.forOwn(Game.creeps, (creep) => {
+    console.log(creep.name, creep.memory.role, creep.memory.state.currentState, creep.ticksToLive);
+  });
+};
+
 module.exports.loop = () => {
   runTower();
   creepManager.deleteDeadCreeps();
