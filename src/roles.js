@@ -8,4 +8,5 @@ module.exports = {
   GATHERER: 'gatherer',
   ATTACKER: 'attacker',
   REMOTE_HARVESTER: 'remote-harvester',
+  CLAIMER: 'claimer',
 };

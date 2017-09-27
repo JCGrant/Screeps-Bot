@@ -92,6 +92,24 @@ const attack = (creep) => {
   }
 };
 
+const claim = (creep) => {
+  const target = creep.room.controller;
+  if (target.my) { return; }
+  let result;
+  if (target.owner) {
+    result = creep.attackController(target);
+  } else {
+    if (creep.memory.state.claim) {
+      result = creep.claimController(target);
+    } else {
+      result = creep.reserveController(target);
+    }
+  }
+  if (result == ERR_NOT_IN_RANGE) {
+    creep.moveTo(target);
+  }
+};
+
 module.exports = {
   harvest,
   withdraw,
@@ -102,4 +120,5 @@ module.exports = {
   travelTo,
   travelFrom,
   attack,
+  claim,
 };

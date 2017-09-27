@@ -9,4 +9,5 @@ module.exports = {
   ATTACKING: 'attacking',
   TRAVELLING_TO: 'travelling-to',
   TRAVELLING_FROM: 'travelling-from',
+  CLAIMING: 'claiming',
 };

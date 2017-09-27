@@ -97,6 +97,19 @@ const jobs = {
       })
     ),
   }),
+
+  [roles.CLAIMER]: createJob({
+    [states.TRAVELLING_TO]: bind(
+      actions.travelTo,
+      transitions.ifCreepInTargetRoom({
+        'currentState': states.CLAIMING,
+      })
+    ),
+    [states.CLAIMING]: bind(
+      actions.claim,
+      transitions.noTransition()
+    )
+  }),
 };
 
 const performJob = (creep) => {
