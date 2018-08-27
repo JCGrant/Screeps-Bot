@@ -140,9 +140,19 @@ const runRepairer = (creep: Creep) => {
         filter: structure => structure.hits < structure.hitsMax,
       }
     );
+    const targetsWithHealthAscending = targets.sort((t1, t2) => {
+      if (t1.hits > t2.hits) {
+        return 1;
+      }
+      if (t1.hits < t2.hits) {
+        return -1;
+      }
+      return 0;
+    });
     if (targets.length) {
-      if (creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
-        creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
+      const target = targetsWithHealthAscending[0];
+      if (creep.repair(target) == ERR_NOT_IN_RANGE) {
+        creep.moveTo(target, { visualizePathStyle: { stroke: '#ffffff' } });
       }
     }
   } else {
