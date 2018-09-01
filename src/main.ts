@@ -4,10 +4,33 @@ import { findStructuresByPriority } from 'utils/utils';
 const roles = ['repairer', 'builder', 'upgrader', 'harvester'];
 
 const TOTALS: { [s: string]: number } = {
-  harvester: 2,
+  harvester: 3,
   upgrader: 5,
-  builder: 2,
-  repairer: 1,
+  builder: 1,
+  repairer: 4,
+};
+
+const towerHeal = (tower: StructureTower) => {
+  const damagedStructures = tower.room.find(FIND_STRUCTURES, {
+    filter: structure => structure.hits < structure.hitsMax,
+  });
+  const sortedByRelativeDamage = _.sortBy(damagedStructures, structure => {
+    return structure.hits / structure.hitsMax;
+  });
+  const mostRelativelyDamaged = sortedByRelativeDamage[0];
+  tower.repair(mostRelativelyDamaged);
+};
+
+const towerAttack = (tower: StructureTower) => {
+  const closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+  if (closestHostile) {
+    tower.attack(closestHostile);
+  }
+};
+
+const runTower = (tower: StructureTower) => {
+  towerHeal(tower);
+  towerAttack(tower);
 };
 
 const runHarvester = (creep: Creep) => {
@@ -26,16 +49,20 @@ const runHarvester = (creep: Creep) => {
   }
 
   if (creep.memory.working) {
-    const targets = creep.room.find(FIND_STRUCTURES, {
-      filter: structure => {
-        return (
-          (structure.structureType == STRUCTURE_EXTENSION ||
-            structure.structureType == STRUCTURE_SPAWN ||
-            structure.structureType == STRUCTURE_TOWER) &&
-          structure.energy < structure.energyCapacity
-        );
-      },
-    });
+    const targets = findStructuresByPriority(
+      creep,
+      [STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_TOWER],
+      {
+        filter: structure => {
+          return (
+            (structure.structureType == STRUCTURE_EXTENSION ||
+              structure.structureType == STRUCTURE_SPAWN ||
+              structure.structureType == STRUCTURE_TOWER) &&
+            structure.energy < structure.energyCapacity
+          );
+        },
+      }
+    );
     if (targets.length > 0) {
       if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
         creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
@@ -183,6 +210,14 @@ export const loop = ErrorMapper.wrapLoop(() => {
     if (!(name in Game.creeps)) {
       delete Memory.creeps[name];
     }
+  }
+
+  for (const key in Game.rooms) {
+    const room = Game.rooms[key];
+    const towers = room.find(FIND_STRUCTURES, {
+      filter: structure => structure.structureType === STRUCTURE_TOWER,
+    }) as StructureTower[];
+    towers.forEach(runTower);
   }
 
   roles.forEach(role => {
